@@ -1,0 +1,71 @@
+<div class="home-container">
+  <!-- Page Header -->
+  <div class="page-header">
+    <h1 class="page-title">TASKS</h1>
+    <p class="page-subtitle">Manage and track your tasks efficiently</p>
+  </div>
+
+  <!-- Filter Options -->
+  <div class="filter-section">
+    <div class="filter-options">
+      <div 
+        *ngFor="let option of filterOptions"
+        class="filter-card"
+        [class.active]="selectedFilter === option.value"
+        [class.filter-all]="option.color === 'all'"
+        [class.filter-todo]="option.color === 'todo'"
+        [class.filter-inprogress]="option.color === 'inprogress'"
+        [class.filter-done]="option.color === 'done'"
+        (click)="selectFilter(option.value)">
+        <div class="filter-icon">{{ option.icon }}</div>
+        <div class="filter-info">
+          <h3 class="filter-label">{{ option.label }}</h3>
+          <span class="filter-count">{{ getTaskCountByFilter(option.value) }} tasks</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading">Loading tasks...</div>
+
+  <!-- Error Message -->
+  <div *ngIf="error" class="error-message">{{ error }}</div>
+
+  <!-- Empty State -->
+  <div *ngIf="!loading && filteredTasks.length === 0" class="no-tasks">
+    <div class="empty-icon">📭</div>
+    <h3>No {{ selectedFilter === 'All' ? '' : selectedFilter }} tasks found</h3>
+    <p>Start by creating a new task</p>
+    <a routerLink="/tasks/new" class="btn-create">+ Create Task</a>
+  </div>
+
+  <!-- Tasks Grid -->
+  <div *ngIf="!loading && filteredTasks.length > 0" class="tasks-section">
+    <div class="section-header">
+      <h2>{{ selectedFilter === 'All' ? 'All Tasks' : selectedFilter + ' Tasks' }}</h2>
+      <span class="task-count-badge">{{ filteredTasks.length }} {{ filteredTasks.length === 1 ? 'task' : 'tasks' }}</span>
+    </div>
+
+    <div class="tasks-grid">
+      <div *ngFor="let task of filteredTasks" class="task-card" [routerLink]="['/tasks/edit', task.id]">
+        <div class="task-card-header">
+          <h3 class="task-title">{{ task.title }}</h3>
+          <span class="task-id">#{{ task.id }}</span>
+        </div>
+        
+        <p class="task-description">{{ task.description || 'No description' }}</p>
+        
+        <div class="task-meta">
+          <span class="status-badge" [ngClass]="'status-' + task.status.toLowerCase()">
+            {{ task.status }}
+          </span>
+          <div class="task-assignee">
+            <div class="avatar">{{ getAssigneeInitials(task.assigneeId) }}</div>
+            <span class="assignee-name">{{ getAssigneeName(task.assigneeId) }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

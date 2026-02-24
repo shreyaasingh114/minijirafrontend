@@ -1,0 +1,307 @@
+/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   USER LIST COMPONENT - Card Grid Design (Consistent with Tasks)
+   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */
+
+.user-list-container {
+  padding: var(--spacing-xl);
+  max-width: 100%;
+  margin: 0 auto;
+  animation: fadeIn 0.5s ease-out;
+  background: linear-gradient(180deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+  min-height: 100vh;
+}
+
+/* ============================================================
+   HEADER SECTION
+   ============================================================ */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-2xl);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 2px solid var(--color-border-light);
+}
+
+.header h1 {
+  margin: 0;
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn-add {
+  padding: var(--spacing-sm) var(--spacing-xl);
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-dark) 100%);
+  color: var(--color-text-inverse);
+  border: none;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-md);
+  letter-spacing: 0.3px;
+}
+
+.btn-add:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ============================================================
+   LOADING & EMPTY STATES
+   ============================================================ */
+.loading,
+.no-users {
+  text-align: center;
+  padding: var(--spacing-2xl);
+  font-size: var(--font-size-lg);
+  color: var(--color-text-secondary);
+  background: var(--color-bg-tertiary);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+.no-users {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.no-users::before {
+  content: '👥';
+  display: block;
+  font-size: 4rem;
+  margin-bottom: var(--spacing-lg);
+}
+
+.no-users a {
+  color: var(--color-secondary);
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* ============================================================
+   ERROR MESSAGE
+   ============================================================ */
+.error-message {
+  background: linear-gradient(135deg, var(--color-error-pale) 0%, #FEF2F2 100%);
+  color: var(--color-error);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border-radius: var(--radius-lg);
+  margin-bottom: var(--spacing-lg);
+  border-left: 4px solid var(--color-error);
+  box-shadow: var(--shadow-sm);
+  font-weight: 500;
+}
+
+/* ============================================================
+   USERS GRID - Card Layout
+   ============================================================ */
+.users-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--spacing-lg);
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* ============================================================
+   USER CARD
+   ============================================================ */
+.user-card {
+  background: var(--color-bg-tertiary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--spacing-lg);
+  cursor: pointer;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.user-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-secondary);
+  background: linear-gradient(135deg, var(--color-bg-tertiary) 0%, var(--color-secondary-pale) 100%);
+}
+
+/* ============================================================
+   USER CARD HEADER
+   ============================================================ */
+.user-card-header {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding-bottom: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.user-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-accent) 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(78, 205, 196, 0.3);
+  flex-shrink: 0;
+}
+
+.user-info {
+  flex: 1;
+}
+
+.user-name {
+  margin: 0;
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-text-primary);
+  line-height: 1.3;
+}
+
+.user-id {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  font-weight: 600;
+  display: block;
+  margin-top: var(--spacing-xs);
+}
+
+/* ============================================================
+   USER CARD BODY
+   ============================================================ */
+.user-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.user-email-section,
+.user-created-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+}
+
+.user-email-section label,
+.user-created-section label {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.user-email,
+.user-created {
+  margin: 0;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  font-weight: 500;
+  word-break: break-word;
+}
+
+/* ============================================================
+   USER CARD FOOTER - ACTION BUTTONS
+   ============================================================ */
+.user-card-footer {
+  display: flex;
+  gap: var(--spacing-sm);
+  padding-top: var(--spacing-md);
+  border-top: 1px solid var(--color-border-light);
+}
+
+.btn-edit,
+.btn-delete {
+  flex: 1;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  transition: all var(--transition-base);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-edit {
+  background: linear-gradient(135deg, var(--color-secondary) 0%, var(--color-secondary-dark) 100%);
+  color: var(--color-text-inverse);
+}
+
+.btn-edit:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-delete {
+  background: linear-gradient(135deg, var(--color-error) 0%, #DC2626 100%);
+  color: var(--color-text-inverse);
+}
+
+.btn-delete:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-edit:active,
+.btn-delete:active {
+  transform: translateY(0);
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN
+   ============================================================ */
+@media (max-width: 1024px) {
+  .users-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: var(--spacing-md);
+  }
+}
+
+@media (max-width: 768px) {
+  .user-list-container {
+    padding: var(--spacing-md);
+  }
+
+  .header {
+    flex-direction: column;
+    gap: var(--spacing-md);
+    align-items: flex-start;
+  }
+
+  .header h1 {
+    font-size: var(--font-size-2xl);
+  }
+
+  .users-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .user-card {
+    padding: var(--spacing-md);
+  }
+
+  .user-card-header {
+    gap: var(--spacing-sm);
+  }
+
+  .user-name {
+    font-size: var(--font-size-base);
+  }
+}

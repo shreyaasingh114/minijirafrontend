@@ -1,0 +1,107 @@
+<div class="task-list-container">
+  <div class="header">
+    <h1>📋 Tasks Board</h1>
+    <button class="btn-add" (click)="navigateToCreate()">+ Add New Task</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading tasks...</div>
+
+  <div *ngIf="error" class="error-message">{{ error }}</div>
+
+  <div *ngIf="!loading && tasks.length === 0" class="no-tasks">
+    No tasks found. <a (click)="navigateToCreate()">Create one</a>
+  </div>
+
+  <!-- Kanban Board -->
+  <div *ngIf="!loading && tasks.length > 0" class="kanban-board">
+    <!-- ToDo Column -->
+    <div class="kanban-column">
+      <div class="column-header todo-header">
+        <h2>📝 To Do</h2>
+        <span class="task-count">{{ getTasksByStatus('ToDo').length }}</span>
+      </div>
+      <div class="tasks-column">
+        <div *ngFor="let task of getTasksByStatus('ToDo')" class="task-card" (click)="navigateToEdit(task.id)">
+          <div class="task-card-header">
+            <h3 class="task-title">{{ task.title }}</h3>
+            <span class="task-id">#{{ task.id }}</span>
+          </div>
+          <p class="task-description">{{ task.description || 'No description' }}</p>
+          <div class="task-card-footer">
+            <div class="task-assignee">
+              <div class="avatar">{{ getAssigneeInitials(task.assigneeId) }}</div>
+              <span class="assignee-name">{{ getAssigneeName(task.assigneeId) }}</span>
+            </div>
+            <div class="task-actions">
+              <button class="btn-edit-sm" (click)="navigateToEdit(task.id); $event.stopPropagation()">✏️</button>
+              <button class="btn-delete-sm" (click)="deleteTask(task.id); $event.stopPropagation()">🗑️</button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="getTasksByStatus('ToDo').length === 0" class="empty-column">
+          No tasks yet
+        </div>
+      </div>
+    </div>
+
+    <!-- InProgress Column -->
+    <div class="kanban-column">
+      <div class="column-header inprogress-header">
+        <h2>⚙️ In Progress</h2>
+        <span class="task-count">{{ getTasksByStatus('InProgress').length }}</span>
+      </div>
+      <div class="tasks-column">
+        <div *ngFor="let task of getTasksByStatus('InProgress')" class="task-card" (click)="navigateToEdit(task.id)">
+          <div class="task-card-header">
+            <h3 class="task-title">{{ task.title }}</h3>
+            <span class="task-id">#{{ task.id }}</span>
+          </div>
+          <p class="task-description">{{ task.description || 'No description' }}</p>
+          <div class="task-card-footer">
+            <div class="task-assignee">
+              <div class="avatar">{{ getAssigneeInitials(task.assigneeId) }}</div>
+              <span class="assignee-name">{{ getAssigneeName(task.assigneeId) }}</span>
+            </div>
+            <div class="task-actions">
+              <button class="btn-edit-sm" (click)="navigateToEdit(task.id); $event.stopPropagation()">✏️</button>
+              <button class="btn-delete-sm" (click)="deleteTask(task.id); $event.stopPropagation()">🗑️</button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="getTasksByStatus('InProgress').length === 0" class="empty-column">
+          No tasks yet
+        </div>
+      </div>
+    </div>
+
+    <!-- Done Column -->
+    <div class="kanban-column">
+      <div class="column-header done-header">
+        <h2>✅ Done</h2>
+        <span class="task-count">{{ getTasksByStatus('Done').length }}</span>
+      </div>
+      <div class="tasks-column">
+        <div *ngFor="let task of getTasksByStatus('Done')" class="task-card" (click)="navigateToEdit(task.id)">
+          <div class="task-card-header">
+            <h3 class="task-title">{{ task.title }}</h3>
+            <span class="task-id">#{{ task.id }}</span>
+          </div>
+          <p class="task-description">{{ task.description || 'No description' }}</p>
+          <div class="task-card-footer">
+            <div class="task-assignee">
+              <div class="avatar">{{ getAssigneeInitials(task.assigneeId) }}</div>
+              <span class="assignee-name">{{ getAssigneeName(task.assigneeId) }}</span>
+            </div>
+            <div class="task-actions">
+              <button class="btn-edit-sm" (click)="navigateToEdit(task.id); $event.stopPropagation()">✏️</button>
+              <button class="btn-delete-sm" (click)="deleteTask(task.id); $event.stopPropagation()">🗑️</button>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="getTasksByStatus('Done').length === 0" class="empty-column">
+          No tasks yet
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

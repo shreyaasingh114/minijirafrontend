@@ -1,0 +1,31 @@
+<header class="app-header">
+  <div class="header-content">
+    <h1>✨ Mini Jira Task Manager</h1>
+    <nav class="app-nav">
+      <a *ngFor="let link of navigationLinks" 
+         [routerLink]="link.path" 
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{exact: false}"
+         class="nav-link">
+        {{ link.label }}
+      </a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  :host {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      Helvetica, Arial, sans-serif;
+    box-sizing: border-box;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+</style>
+<main class="app-main">
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="app-footer">
+  <p>&copy; 2026 Mini Jira Task Manager. All rights reserved.</p>
+</footer>

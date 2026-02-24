@@ -1,0 +1,45 @@
+<div class="user-list-container">
+  <div class="header">
+    <h1>👥 Users Directory</h1>
+    <button class="btn-add" (click)="navigateToCreate()">+ Add New User</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading users...</div>
+
+  <div *ngIf="error" class="error-message">{{ error }}</div>
+
+  <div *ngIf="!loading && users.length === 0" class="no-users">
+    No users found. <a (click)="navigateToCreate()">Create one</a>
+  </div>
+
+  <!-- Users Grid -->
+  <div *ngIf="!loading && users.length > 0" class="users-grid">
+    <div *ngFor="let user of users" class="user-card" (click)="navigateToEdit(user.id)">
+      <div class="user-card-header">
+        <div class="user-avatar">
+          {{ getUserInitials(user.name) }}
+        </div>
+        <div class="user-info">
+          <h3 class="user-name">{{ user.name }}</h3>
+          <span class="user-id">#{{ user.id }}</span>
+        </div>
+      </div>
+
+      <div class="user-card-body">
+        <div class="user-email-section">
+          <label>Email</label>
+          <p class="user-email">{{ user.email }}</p>
+        </div>
+        <div class="user-created-section">
+          <label>Joined</label>
+          <p class="user-created">{{ user.createdAt | date: 'MMM dd, yyyy' }}</p>
+        </div>
+      </div>
+
+      <div class="user-card-footer">
+        <button class="btn-edit" (click)="navigateToEdit(user.id); $event.stopPropagation()">✏️ Edit</button>
+        <button class="btn-delete" (click)="deleteUser(user.id); $event.stopPropagation()">🗑️ Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
